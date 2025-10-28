@@ -46,15 +46,15 @@ public class Platillo {
     
     public void removeIngrediente(String nombre) {
         if(ingrediente_head.getNombre().equals(nombre)) {
-            ingrediente_head = ingrediente_head.getSiguiente();
+            ingrediente_head = ingrediente_head.getSig();
         }else{
             Ingrediente current = ingrediente_head;
-            while(current.getSiguiente() != null){
-                if(current.getSiguiente().getNombre().equals(nombre)){
-                    current.setSiguiente(current.getSiguiente().getSiguiente());
+            while(current.getSig() != null){
+                if(current.getSig().getNombre().equals(nombre)){
+                    current.setSig(current.getSig().getSig());
                     return;
                 }
-                current = current.getSiguiente();
+                current = current.getSig();
             }
         }
         System.out.println("Ingrediente no encontrado");
@@ -65,7 +65,7 @@ public class Platillo {
         Ingrediente current = ingrediente_head;
         while(current != null){
             sb.append(current.toString()).append("\n");
-            current = current.getSiguiente();
+            current = current.getSig();
         }
         return sb.toString();
     }
