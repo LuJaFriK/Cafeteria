@@ -1,5 +1,6 @@
 public class Ingrediente {
     private String nombre;
+    private String cantidad;
     private Ingrediente sig;
 
     public Ingrediente(String nombre) {
@@ -7,8 +8,9 @@ public class Ingrediente {
         this.sig = null;
     }
 
-    public Ingrediente(String dato, Ingrediente sig) {
-        this.nombre = dato;
+    public Ingrediente(String nombre, String cantidad, Ingrediente sig) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
         this.sig = sig;
     }
 
@@ -18,6 +20,14 @@ public class Ingrediente {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Ingrediente getSig() {
@@ -30,6 +40,6 @@ public class Ingrediente {
 
     @Override
     public String toString(){
-        return nombre;
+        return "Nombre: "+nombre+" Cantidad: "+cantidad;
     }
 }
