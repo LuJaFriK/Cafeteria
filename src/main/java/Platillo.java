@@ -52,10 +52,12 @@ public class Platillo {
     
     
     public void addIngrediente(Ingrediente ingrediente) {
-        ingrediente_head = new Ingrediente(ingrediente.getNombre(), ingrediente.getCantidad(), ingrediente_head);
+        ingrediente.setSig(ingrediente_head);
+        ingrediente_head = ingrediente;
     }
     
     public void removeIngrediente(String nombre) {
+        if(ingrediente_head == null) return;
         if(ingrediente_head.getNombre().equals(nombre)) {
             ingrediente_head = ingrediente_head.getSig();
         }else{
@@ -68,17 +70,30 @@ public class Platillo {
                 current = current.getSig();
             }
         }
-        System.out.println("Ingrediente no encontrado");
     }
     
     public String Ingredientes(){
+        if(ingrediente_head==null) return "";
         StringBuilder sb = new StringBuilder();
         Ingrediente current = ingrediente_head;
+        sb.append("[");
         while(current != null){
-            sb.append(current.toString()).append("\n");
+            sb.append(current.toString());
+            if(current.getSig()!=null) sb.append(", ");
             current = current.getSig();
         }
+        sb.append("]");
         return sb.toString();
+    }
+
+    boolean tieneIngrediente(String nombre){
+        if(ingrediente_head==null) return false;
+        Ingrediente ing = ingrediente_head;
+        while (ing!=null) {
+            if(ing.getNombre().equals(nombre)) return true;
+            ing = ing.getSig();
+        }
+        return false;
     }
 
     @Override
