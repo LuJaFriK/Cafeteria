@@ -8,12 +8,14 @@ public class Platillo {
         this.nombre = nombre;
         this.sig = null;
         this.ant = null;
+        this.ingrediente_head=null;
     }
 
     public Platillo(String nombre, Platillo sig, Platillo ant) {
         this.nombre = nombre;
         this.sig = null;
         this.ant = null;
+        this.ingrediente_head=null;
     }
 
     public String getNombre() {
@@ -39,6 +41,15 @@ public class Platillo {
     public void setAnt(Platillo ant) {
         this.ant = ant;
     }
+
+    public Ingrediente getIngrediente_head() {
+        return ingrediente_head;
+    }
+
+    public void setIngrediente_head(Ingrediente ingrediente_head) {
+        this.ingrediente_head = ingrediente_head;
+    }
+    
     
     public void addIngrediente(Ingrediente ingrediente) {
         ingrediente_head = new Ingrediente(ingrediente.getNombre(), ingrediente.getCantidad(), ingrediente_head);
@@ -46,15 +57,15 @@ public class Platillo {
     
     public void removeIngrediente(String nombre) {
         if(ingrediente_head.getNombre().equals(nombre)) {
-            ingrediente_head = ingrediente_head.getSiguiente();
+            ingrediente_head = ingrediente_head.getSig();
         }else{
             Ingrediente current = ingrediente_head;
-            while(current.getSiguiente() != null){
-                if(current.getSiguiente().getNombre().equals(nombre)){
-                    current.setSiguiente(current.getSiguiente().getSiguiente());
+            while(current.getSig() != null){
+                if(current.getSig().getNombre().equals(nombre)){
+                    current.setSig(current.getSig().getSig());
                     return;
                 }
-                current = current.getSiguiente();
+                current = current.getSig();
             }
         }
         System.out.println("Ingrediente no encontrado");
@@ -65,7 +76,7 @@ public class Platillo {
         Ingrediente current = ingrediente_head;
         while(current != null){
             sb.append(current.toString()).append("\n");
-            current = current.getSiguiente();
+            current = current.getSig();
         }
         return sb.toString();
     }

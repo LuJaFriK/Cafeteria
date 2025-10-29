@@ -3,8 +3,9 @@ public class Ingrediente {
     private String cantidad;
     private Ingrediente sig;
 
-    public Ingrediente(String nombre) {
+    public Ingrediente(String nombre,String cantidad) {
         this.nombre = nombre;
+        this.cantidad=cantidad;
         this.sig = null;
     }
 
