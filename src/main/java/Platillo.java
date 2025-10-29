@@ -8,12 +8,14 @@ public class Platillo {
         this.nombre = nombre;
         this.sig = null;
         this.ant = null;
+        this.ingrediente_head=null;
     }
 
     public Platillo(String nombre, Platillo sig, Platillo ant) {
         this.nombre = nombre;
         this.sig = null;
         this.ant = null;
+        this.ingrediente_head=null;
     }
 
     public String getNombre() {
@@ -39,6 +41,15 @@ public class Platillo {
     public void setAnt(Platillo ant) {
         this.ant = ant;
     }
+
+    public Ingrediente getIngrediente_head() {
+        return ingrediente_head;
+    }
+
+    public void setIngrediente_head(Ingrediente ingrediente_head) {
+        this.ingrediente_head = ingrediente_head;
+    }
+    
     
     public void addIngrediente(Ingrediente ingrediente) {
         ingrediente_head = new Ingrediente(ingrediente.getNombre(), ingrediente.getCantidad(), ingrediente_head);
