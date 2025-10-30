@@ -8,18 +8,55 @@ public class ListaPlatillos {
     public boolean ListaVacia(){
         return cabecera == null;
     }
+
+    private static void link(Platillo anterior,Platillo siguiente){
+        if(anterior!=null) anterior.setSig(siguiente);
+        if(siguiente!=null) siguiente.setAnt(anterior);
+    }
     
-    public void addPlatillo(String nombre){
-        Platillo nuevo = new Platillo(nombre);
-        if (ListaVacia()) {
-            cabecera = nuevo;
+    public void addPlatillo(String nombre) {
+    Platillo nuevo = new Platillo(nombre);
+
+    if (ListaVacia()) {
+        cabecera = nuevo;
+        return;
+    }
+    //Si va antes o en la cabecera
+    int comparacion = cabecera.getNombre().compareTo(nombre);
+    if (comparacion > 0) {
+        link(nuevo, cabecera);
+        cabecera = nuevo; 
+        return;
+    }else if (comparacion == 0) {
+        link(nuevo, cabecera.getSig()); 
+        cabecera = nuevo;              
+        return;
+    }
+    //Buscamos en medio de la lista
+    Platillo current = cabecera;
+    //El ciclo acaba antes de llegar a nulo
+    while (current.getSig() != null) {
+        
+        comparacion = current.getSig().getNombre().compareTo(nombre);
+        
+        //Si current va despues que el nodo nuevo
+        if (comparacion > 0) {
+            link(nuevo, current.getSig());
+            link(current, nuevo);
+            return;
+        //Si se reemplaza el nodo
+        } else if (comparacion == 0) {
+            
+            link(nuevo, current.getSig().getSig());
+            link(current, nuevo);
             return;
         }
-        
-        nuevo.setSig(cabecera);
-        if(cabecera != null) cabecera.setAnt(nuevo);
-        cabecera = nuevo;
+        //Si todavia no lo encuentra
+        current = current.getSig();
     }
+    //Si va hasta el final
+    link(current, nuevo);
+}
 
     public void removePlatillo(String nombre){
         if(cabecera == null) return;
@@ -28,8 +65,7 @@ public class ListaPlatillos {
         while(current.getSig()!=null){
             if(current.getNombre().equals(nombre)){
                 //Hacer doble enlace
-                if(current.getAnt()!=null) current.getAnt().setSig(current.getSig());
-                if(current.getSig()!=null) current.getSig().setAnt(current.getAnt());
+                link(current.getAnt(),current.getSig());
             }
         } 
     }
@@ -48,8 +84,11 @@ public class ListaPlatillos {
 
     public void addIngrediente(String nombrePlatillo,Ingrediente ingrediente){
         Platillo current = cabecera;
-        while(true){
-            if(current.getNombre().equals(nombrePlatillo)) current.addIngrediente(ingrediente);
+        while(current!=null){
+            if(current.getNombre().equals(nombrePlatillo)) {
+                current.addIngrediente(ingrediente);
+                return;
+            }
             
             current = current.getSig();
         }
