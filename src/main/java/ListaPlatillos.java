@@ -28,8 +28,6 @@ public class ListaPlatillos {
         cabecera = nuevo; 
         return;
     }else if (comparacion == 0) {
-        link(nuevo, cabecera.getSig()); 
-        cabecera = nuevo;              
         return;
     }
     //Buscamos en medio de la lista
@@ -46,9 +44,6 @@ public class ListaPlatillos {
             return;
         //Si se reemplaza el nodo
         } else if (comparacion == 0) {
-            
-            link(nuevo, current.getSig().getSig());
-            link(current, nuevo);
             return;
         }
         //Si todavia no lo encuentra
@@ -60,6 +55,11 @@ public class ListaPlatillos {
 
     public void removePlatillo(String nombre){
         if(cabecera == null) return;
+
+        if(cabecera.getNombre().equals(nombre)) {
+            cabecera = cabecera.getSig();
+            return;
+        }
         
         Platillo current = cabecera;
         while(current.getSig()!=null){
@@ -67,6 +67,7 @@ public class ListaPlatillos {
                 //Hacer doble enlace
                 link(current.getAnt(),current.getSig());
             }
+            current = current.getSig();
         } 
     }
     
@@ -109,7 +110,7 @@ public class ListaPlatillos {
     }
 
     public String tienenIngrediente(String ingrediente){
-        if(ListaVacia()) return "[]";
+        if(ListaVacia()) return "No hay platillos.";
         StringBuilder sb = new StringBuilder();
         Platillo current = cabecera;
         sb.append('[');
@@ -128,7 +129,7 @@ public class ListaPlatillos {
 
     @Override
     public String toString(){
-        if(ListaVacia()) return "[]";
+        if(ListaVacia()) return "No hay platillos.";
         StringBuilder sb = new StringBuilder();
         Platillo current = cabecera;
         while(current!=null){
